@@ -1,0 +1,40 @@
+#define CUSTOM_SETTINGS
+#define INCLUDE_SKYPE_SHIELD
+#include <OneSheeld.h>
+
+const int flexpin = 0; 
+
+/* Define a boolean flag. */
+boolean didWeCall = false;
+
+void setup() 
+{
+  OneSheeld.begin();
+  Serial.begin(9600);
+}
+
+void loop()
+{
+   int flexposition;
+   flexposition = analogRead(flexpin);
+   Serial.print(flexposition);
+   
+  if (flexposition > 500)
+  {
+    if(!didWeCall)
+    {
+      /* Call one of your Skype's contacts. */
+      Skype.call("bramschork");  
+      /* Set the flag. */
+      didWeCall = true;
+    }
+  }
+  else
+  {
+    /* Reset the flag. */
+    didWeCall = false;
+  }
+  
+}
+ 
+
